@@ -5,7 +5,8 @@ import {
   MdAttachMoney, 
   MdSettings, 
   MdHelp, 
-  MdPeople 
+  MdPeople, 
+  MdLogout
 } from "react-icons/md";
 
 import styles from './sidebar.module.css'
@@ -93,6 +94,7 @@ function Sidebar() {
           ))
         }
       </ul>
+      <button className={styles.logout}><MdLogout/> Logout</button>
     </div>
    );
 }
