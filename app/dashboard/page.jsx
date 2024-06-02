@@ -13,8 +13,8 @@ function Dashboard() {
           <Card />
           <Card />
         </div>
-        <Chart />
         <Transactions />
+        <Chart />
       </div>
       <div className={styles.side}>
         <Rightbar />
