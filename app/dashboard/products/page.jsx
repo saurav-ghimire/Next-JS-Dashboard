@@ -36,7 +36,7 @@ function ProductsPage() {
             <td>06.02.2024</td>
             <td>20</td>
             <td className={styles.buttons}>
-              <Link href={'/'}>
+              <Link href={'/dashboard/products/12313'}>
                 <button className={`${styles.button} ${styles.view}`}>View</button>
               </Link>
               <Link href={'/'}>

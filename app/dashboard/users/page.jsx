@@ -28,7 +28,7 @@ function UsersPage() {
         <tbody>
           <tr>
             <td className={styles.user}>
-              <Image src={'/avatar.jpg'} height={40} width={40} alt='User/' className={styles.userImage} />
+              <Image src={'/avatar.jpg'} height={40} width={40} alt='User' className={styles.userImage} />
               John DOe
             </td>
             <td>john@gmail.com</td>
