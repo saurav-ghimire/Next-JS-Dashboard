@@ -1,6 +1,7 @@
 import Header from "../components/dashboard/header/header";
 import Sidebar from "../components/dashboard/sidebar/sidebar";
 import styles from '../components/dashboard/dashboard.module.css'
+import Footer from "../components/dashboard/footer/footer";
 
 function Layout({children}) {
   return ( 
@@ -13,6 +14,7 @@ function Layout({children}) {
         <div>
           {children}
         </div>
+        <Footer/>
       </div>
     </div>
    );
