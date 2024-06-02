@@ -36,7 +36,7 @@ function UsersPage() {
             <td>Admin</td>
             <td>Active</td>
             <td className={styles.buttons}>
-              <Link href={'/'}>
+              <Link href={'/dashboard/users/123'}>
                 <button className={`${styles.button} ${styles.view}`}>View</button>
               </Link>
               <Link href={'/'}>
