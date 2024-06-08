@@ -1,11 +1,14 @@
 import Pagination from '@/app/components/dashboard/pagination/pagination';
 import Search from '@/app/components/dashboard/search/search';
 import styles from '@/app/components/dashboard/users/users.module.css'
+import { fetchUser } from '@/app/lib/data';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-function UsersPage() {
+async function UsersPage() {
+  const users = await fetchUser();
+  
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -26,17 +29,22 @@ function UsersPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {
+            users.length < 1 ? 'No users' : ''
+          }
+          {
+            users.map(user=>(
+          <tr key={user?.id}>
             <td className={styles.user}>
-              <Image src={'/avatar.jpg'} height={40} width={40} alt='User' className={styles.userImage} />
-              John DOe
+              <Image src={user?.image ? user?.image : '/avatar.jpg'} height={40} width={40} alt='User' className={styles.userImage} />
+              {user?.username}
             </td>
-            <td>john@gmail.com</td>
-            <td>06.02.2024</td>
-            <td>Admin</td>
-            <td>Active</td>
+            <td>{user?.email}</td>
+            <td>{user?.createdAt?.toString().slice(4,16)}</td>
+            <td>{user?.isAdmin ? 'Admin' : 'Client'}</td>
+            <td>{user?.isActive ? 'Active' : 'False'}</td>
             <td className={styles.buttons}>
-              <Link href={'/dashboard/users/123'}>
+              <Link href={`/dashboard/users/${user?.id}`}>
                 <button className={`${styles.button} ${styles.view}`}>View</button>
               </Link>
               <Link href={'/'}>
@@ -44,6 +52,8 @@ function UsersPage() {
               </Link>
             </td>
           </tr>
+          ))
+        }
         </tbody>
       </table>
 

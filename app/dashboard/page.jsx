@@ -4,7 +4,7 @@ import Rightbar from "../components/dashboard/rightbar/rightbar";
 import Transactions from "../components/dashboard/transactions/transactions";
 import styles from '../components/dashboard/dashboard.module.css'
 
-function Dashboard() {
+async function Dashboard() {  
   return ( 
     <div className={styles.wrapper}>
       <div className={styles.main}>
