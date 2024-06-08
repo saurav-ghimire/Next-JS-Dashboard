@@ -1,4 +1,5 @@
-const { User } = require('./models');
+const { User, Product } = require('./models');
+
 const connectDB = require('./utils');
 
 const fetchUser = async (q, page) => {
@@ -17,4 +18,21 @@ const fetchUser = async (q, page) => {
   }
 };
 
-module.exports = { fetchUser};
+const fetchProduct = async (q, page) => {
+
+  try {
+    await connectDB(); // Ensure the DB connection is established
+    const searchQuery = q ? String(q) : '';
+    const itemPerPage = 2;
+    const count = await Product.find();
+    const totalCount = count.length;
+    const product = await Product.find({ title: { $regex: searchQuery, $options: 'i' } }).limit(itemPerPage).skip(itemPerPage * (page-1));
+    return {product, totalCount};
+  } catch (error) {
+    console.error('Error fetching Product data:', error.message);
+    throw new Error('Failed to fetch Product data');
+  }
+};
+
+
+module.exports = { fetchUser, fetchProduct};

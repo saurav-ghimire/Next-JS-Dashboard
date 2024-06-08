@@ -4,8 +4,13 @@ import styles from '@/app/components/dashboard/products/products.module.css'
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { fetchProduct } from '@/app/lib/data';
 
-function ProductsPage() {
+async function ProductsPage({searchParams}) {
+  const q = searchParams?.q || '';
+  const page = searchParams?.page || 1;
+  const {product, totalCount} = await fetchProduct(q,page);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -18,7 +23,6 @@ function ProductsPage() {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Description</th>
             <th>Price</th>
             <th>Created At</th>
             <th>Stock</th>
@@ -26,28 +30,32 @@ function ProductsPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className={styles.user}>
-              <Image src={'/noproduct.jpg'} height={40} width={40} alt='User/' className={styles.productImage} />
-              Iphone
-            </td>
-            <td>This is test</td>
-            <td>$1100</td>
-            <td>06.02.2024</td>
-            <td>20</td>
-            <td className={styles.buttons}>
-              <Link href={'/dashboard/products/12313'}>
-                <button className={`${styles.button} ${styles.view}`}>View</button>
-              </Link>
-              <Link href={'/'}>
-                <button className={`${styles.button} ${styles.delete}`}>Delete</button>
-              </Link>
-            </td>
-          </tr>
+          {
+            product.map((product)=>(
+              <tr>
+              <td className={styles.user}>
+                <Image src={product?.image ? product?.image : '/noproduct.jpg'} height={40} width={40} alt='User' className={styles.productImage} />
+                {product?.title}
+              </td>
+              
+              <td>${product?.price}</td>
+              <td>{product?.createdAt?.toString().slice(4,16)}</td>
+              <td>{product?.stock}</td>
+              <td className={styles.buttons}>
+                <Link href={`/dashboard/products/${product.id}`}>
+                  <button className={`${styles.button} ${styles.view}`}>View</button>
+                </Link>
+                <Link href={'/'}>
+                  <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                </Link>
+              </td>
+            </tr>
+            ))
+          }
         </tbody>
       </table>
 
-      <Pagination />
+      <Pagination count={totalCount} />
     </div>
   );
 }
