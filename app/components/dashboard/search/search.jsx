@@ -10,8 +10,9 @@ function Search({ placeholder }) {
 
   const handleOnChange = (e) => {
     const params = new URLSearchParams(search);
-    if (e.target.value.length > 0) {
+    if (e.target.value.length > 2) {
       params.set("q", e.target.value);
+      params.set("page", 1);
     } else {
       params.delete("q");
     }

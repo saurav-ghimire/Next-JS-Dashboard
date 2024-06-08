@@ -7,8 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 async function UsersPage({searchParams}) {
-  const q = searchParams?.q;
-  const users = await fetchUser(q);
+  
+  const q = searchParams?.q || '';
+  const page = searchParams?.page || 1;
+  const {users, totalCount} = await fetchUser(q,page);
   
   return (
     <div className={styles.container}>
@@ -18,6 +20,9 @@ async function UsersPage({searchParams}) {
           <button className={styles.addButton}>Add New</button>
           </Link>
       </div>
+      {
+            users.length < 1 ? 'No users' : ''
+          }
       <table className={styles.table}>
         <thead>
           <tr>
@@ -30,9 +35,7 @@ async function UsersPage({searchParams}) {
           </tr>
         </thead>
         <tbody>
-          {
-            users.length < 1 ? 'No users' : ''
-          }
+          
           {
             users.map(user=>(
           <tr key={user?.id}>
@@ -58,7 +61,7 @@ async function UsersPage({searchParams}) {
         </tbody>
       </table>
 
-      <Pagination />
+      <Pagination count={totalCount} />
     </div>
   );
 }
