@@ -19,6 +19,9 @@ async function ProductsPage({searchParams}) {
           <button className={styles.addButton}>Add New</button>
           </Link>
       </div>
+      {
+            product.length < 1 ? 'No Products' : ''
+          }
       <table className={styles.table}>
         <thead>
           <tr>

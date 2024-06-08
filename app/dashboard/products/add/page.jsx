@@ -1,11 +1,12 @@
 import styles from "@/app//components/dashboard/products/addProducts.module.css";
+import { addProduct } from "@/app/lib/action";
 
 const AddProductPage = () => {
   return (
     <div className={styles.container}>
-      <form action='' className={styles.form}>
+      <form action={addProduct} className={styles.form}>
         <input type="text" placeholder="title" name="title" required />
-        <select name="cat" id="cat">
+        <select name="category" id="cat">
           <option value="general">Choose a Category</option>
           <option value="kitchen">Kitchen</option>
           <option value="phone">Phone</option>
