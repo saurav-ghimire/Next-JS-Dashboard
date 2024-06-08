@@ -6,8 +6,9 @@ import { fetchUser } from '@/app/lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
 
-async function UsersPage() {
-  const users = await fetchUser();
+async function UsersPage({searchParams}) {
+  const q = searchParams?.q;
+  const users = await fetchUser(q);
   
   return (
     <div className={styles.container}>
