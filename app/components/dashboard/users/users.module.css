@@ -62,3 +62,16 @@
 .delete{
   background-color: crimson;
 }
+
+.popupTitle{
+  color: #5d57c9;
+}
+
+.popUpCancle{
+  color: crimson;
+}
+
+.buttonWrapper{
+  display: flex;
+  justify-content: flex-start;
+}

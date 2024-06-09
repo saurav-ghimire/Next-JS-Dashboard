@@ -64,3 +64,18 @@ export const deleteProduct = async (formData) => {
   }
   revalidatePath('/dashboard/products');
 };
+
+
+export const deleteUser = async (formData) => {
+  'use server'
+  const {id} = Object.fromEntries(formData);
+
+  try {
+    connectDB();
+    await User.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error('error', err);
+  }
+  revalidatePath('/dashboard/users');
+};

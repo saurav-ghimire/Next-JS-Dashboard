@@ -70,3 +70,8 @@
 .popUpCancle{
   color: crimson;
 }
+
+.buttonWrapper{
+  display: flex;
+  justify-content: flex-start;
+}

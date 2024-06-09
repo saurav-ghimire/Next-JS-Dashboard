@@ -74,11 +74,11 @@ async function ProductsPage({searchParams}) {
                       and remove your data from our servers.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
-                  <AlertDialogFooter>
+                  <AlertDialogFooter className={styles.buttonWrapper}>
                     <AlertDialogCancel className={styles.popUpCancle}>Cancel</AlertDialogCancel>
                     
                     <form action={deleteProduct}>
-                      <input type="text" name='id' value={product.id} />
+                      <input type="text" name='id' value={product.id} hidden />
                       <button type='submit' className={`${styles.button} ${styles.delete}`}>Delete</button>
                     </form>
                     
