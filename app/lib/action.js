@@ -35,7 +35,6 @@ export const addUser = async(formData) => {
 
 export const addProduct = async(formData) => {
   "use server"
-
   const {title, cat, price,category, stock, color, size, desc} = Object.fromEntries(formData);
   try {
     
@@ -52,11 +51,16 @@ export const addProduct = async(formData) => {
   redirect('/dashboard/products');
 }
 
-export const deleteProduct = (id) => {
-  try{
-    Product.findByIdAndDelete(id);
-  }catch(err){
+export const deleteProduct = async (formData) => {
+  'use server'
+  const {id} = Object.fromEntries(formData);
+
+  try {
+    connectDB();
+    await Product.findByIdAndDelete(id);
+  } catch (err) {
     console.log(err);
-    throw new Error('error', err)
+    throw new Error('error', err);
   }
-}
+  revalidatePath('/dashboard/products');
+};

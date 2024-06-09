@@ -17,6 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { deleteProduct } from '@/app/lib/action';
 
 
 async function ProductsPage({searchParams}) {
@@ -24,6 +25,7 @@ async function ProductsPage({searchParams}) {
   const page = searchParams?.page || 1;
   const {product, totalCount} = await fetchProduct(q,page);
 
+  
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -48,7 +50,7 @@ async function ProductsPage({searchParams}) {
         <tbody>
           {
             product.map((product)=>(
-              <tr>
+              <tr key={product.id}>
               <td className={styles.user}>
                 <Image src={product?.image ? product?.image : '/noproduct.jpg'} height={40} width={40} alt='User' className={styles.productImage} />
                 {product?.title}
@@ -61,6 +63,7 @@ async function ProductsPage({searchParams}) {
                 <Link href={`/dashboard/products/${product.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>View</button>
                 </Link>
+                
                 <AlertDialog>
                 <AlertDialogTrigger className={`${styles.delete} ${styles.button}`}>Delete</AlertDialogTrigger>
                 <AlertDialogContent>
@@ -73,7 +76,12 @@ async function ProductsPage({searchParams}) {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel className={styles.popUpCancle}>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
+                    
+                    <form action={deleteProduct}>
+                      <input type="text" name='id' value={product.id} />
+                      <button type='submit' className={`${styles.button} ${styles.delete}`}>Delete</button>
+                    </form>
+                    
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
