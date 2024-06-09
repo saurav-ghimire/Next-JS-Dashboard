@@ -51,3 +51,12 @@ export const addProduct = async(formData) => {
   revalidatePath('/dashboard/products');
   redirect('/dashboard/products');
 }
+
+export const deleteProduct = (id) => {
+  try{
+    Product.findByIdAndDelete(id);
+  }catch(err){
+    console.log(err);
+    throw new Error('error', err)
+  }
+}

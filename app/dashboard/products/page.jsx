@@ -6,6 +6,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fetchProduct } from '@/app/lib/data';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+
 async function ProductsPage({searchParams}) {
   const q = searchParams?.q || '';
   const page = searchParams?.page || 1;
@@ -48,9 +61,26 @@ async function ProductsPage({searchParams}) {
                 <Link href={`/dashboard/products/${product.id}`}>
                   <button className={`${styles.button} ${styles.view}`}>View</button>
                 </Link>
-                <Link href={'/'}>
+                <AlertDialog>
+                <AlertDialogTrigger className={`${styles.delete} ${styles.button}`}>Delete</AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className={styles.popupTitle}>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete your account
+                      and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className={styles.popUpCancle}>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
+                {/* <Link href={'/'}>
                   <button className={`${styles.button} ${styles.delete}`}>Delete</button>
-                </Link>
+                </Link> */}
               </td>
             </tr>
             ))
