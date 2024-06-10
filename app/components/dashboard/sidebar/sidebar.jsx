@@ -12,6 +12,8 @@ import {
 import styles from './sidebar.module.css'
 import MenuLink from "./menuLink/menuLink";
 import Image from "next/image";
+import { auth, signOut } from "@/app/authprovider";
+
 const menuItems = [
   {
     title: 'Pages',
@@ -70,13 +72,15 @@ const menuItems = [
   }
 ];
 
-function Sidebar() {
+async function Sidebar() {
+  const {user} = await auth();
+  
   return ( 
     <div className={styles.container}>
       <div className={styles.user}>
         <Image src="/avatar.jpg" alt="" height="50" width="50" className={styles.userImage} />
         <div className={styles.userDetail}>
-            <span className={styles.userName}>John Doe</span>
+            <span className={styles.userName}>{user.username}</span>
             <span className={styles.userTitle}>Administrator</span>
         </div>
       </div>
@@ -94,7 +98,12 @@ function Sidebar() {
           ))
         }
       </ul>
-      <button className={styles.logout}><MdLogout/> Logout</button>
+      <form action={async() => {
+        "use server"
+        await signOut();
+      }}>
+          <button type='submit' className={styles.logout}><MdLogout/> Logout</button>
+      </form>
     </div>
    );
 }

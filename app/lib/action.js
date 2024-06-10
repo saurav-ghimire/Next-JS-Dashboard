@@ -5,6 +5,7 @@ import connectDB from "./utils";
 import { redirect } from "next/navigation";
 import { signIn } from "../authprovider";
 
+
 const bcrypt = require('bcrypt');
 
 
@@ -176,11 +177,10 @@ export const updateProduct = async (formData) => {
 export const authenticate = async (formData) => {
   "use server"
   const { username, password } = Object.fromEntries(formData);
-  
   try {
     await signIn("credentials", { username, password });
   } catch (err) {
     console.log('err')
-    throw err;
+    return {error:'Wrong Credentials'}
   }
 };

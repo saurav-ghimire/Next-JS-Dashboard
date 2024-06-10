@@ -34,7 +34,6 @@ export const { signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         try {
           const user = await login(credentials);
-          console.log('user',user)
           return user;
         } catch (err) {
           return null;
@@ -42,4 +41,20 @@ export const { signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks:{
+    async jwt({token, user}){
+      if(user){
+        token.username = user.username;
+        token.image = user.image;
+      }
+      return token;
+    },
+    async session({session,token}){
+      if(token){
+        session.username = token.username;
+        session.image = token.image;
+      }
+      return token;
+    },
+  }
 })
